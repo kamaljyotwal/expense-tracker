@@ -1,7 +1,6 @@
 const transactions = require("../models/transactionSchemaFile");
 
 // controller functions
-
 exports.getTransactions = async (req, res, next) => {
   try {
     const tt = await transactions.find();
@@ -47,7 +46,6 @@ exports.addTransactions = async (req, res, next) => {
 exports.deleteTransactions = async (req, res, next) => {
   try {
     const ttdel = await transactions.findById(req.params.id);
-    // res.send("done");
 
     if (!ttdel) {
       return res.status(404).json({
@@ -56,9 +54,10 @@ exports.deleteTransactions = async (req, res, next) => {
       });
     }
     await ttdel.remove();
+
     return res.status(200).json({
       success: true,
-      data: {},
+      message: "Entry deleted successfully",
     });
   } catch (error) {
     return res.status(500).json({

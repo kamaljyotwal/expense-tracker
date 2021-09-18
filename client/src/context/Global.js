@@ -26,17 +26,14 @@ export const ProviderComponent = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // ACTIONS
-  // getting trans using axios
   async function getTrans() {
     try {
       const result = await axios.get("/api/transactions");
-
       dispatch({ type: "GET_TRANSACTION", payload: result.data.data });
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   }
-
   async function deleteTrans(id) {
     await axios.delete(`api/transactions/${id}`);
     dispatch({ type: "DELETE_TRANSACTION", payload: id });
@@ -48,7 +45,7 @@ export const ProviderComponent = ({ children }) => {
     };
     try {
       const res = await axios.post(`api/transactions/`, payload, config);
-
+      console.log(payload);
       dispatch({ type: "ADD_TRANSACTION", payload: res.data.data });
     } catch (error) {
       console.log(error);
